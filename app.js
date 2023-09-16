@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const env = require("dotenv");
-const morgan = require("morgan");
-const fs = require("fs");
 const path = require("path");
 env.config();
 
@@ -21,11 +19,9 @@ const forgotPasswordRequest = require("./models/password")
 const downloadFile = require("./models/file");
 const app = express();
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),{flags:"a"})
-
 
 app.use(cors());
-app.use(morgan('combined',{stream: accessLogStream}));
+
 app.use(express.json());
 
 app.use("/user", user);
