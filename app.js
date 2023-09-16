@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const env = require("dotenv");
-const helmet = require("helmet");
 const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
@@ -26,7 +25,6 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 
 
 app.use(cors());
-app.use(helmet());
 app.use(morgan('combined',{stream: accessLogStream}));
 app.use(express.json());
 
@@ -39,6 +37,10 @@ app.use("/purchase", purchase)
 app.use("/premium", premium);
 
 app.use("/password", forgotPassword);
+
+app.use((req,res)=> {
+    res.sendFile(path.join(__dirname, `public/${req.url}`))
+})
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
