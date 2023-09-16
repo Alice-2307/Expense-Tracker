@@ -19,7 +19,6 @@ const forgotPasswordRequest = require("./models/password")
 const downloadFile = require("./models/file");
 const app = express();
 
-
 app.use(cors());
 
 app.use(express.json());
@@ -53,5 +52,5 @@ downloadFile.belongsTo(User);
 
 
 sequelize.sync().then(result => {
-    app.listen(process.env.PORT ||3000);
+    app.listen(3000);
 }).catch(err => console.log(err));
