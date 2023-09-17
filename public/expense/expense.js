@@ -162,7 +162,6 @@ razorPay.onclick = async (e) => {
 
     const token = localStorage.getItem('token');
     const result = await axios.get("http://54.252.144.251:3000/purchase/premium", { headers: { "Authorization": token } });
-    console.log(result);
 
     let options = {
         "key": result.data.key_id,
@@ -198,7 +197,6 @@ leaderBoard.onclick = async () => {
         const token = localStorage.getItem("token")
         if (!isLeaderboardOpen) {
             const result = await axios.get("http://54.252.144.251:3000/premium/showleaderboard", { headers: { "Authorization": token } });
-            console.log(result);
             if (result.data.isPremium === true) {
                 for (let i = 0; i < result.data.leaderboard.length; i++) {
                     showLeaderboard(result.data.leaderboard[i]);
@@ -229,7 +227,6 @@ downloadExpense.onclick = async () => {
     try {
         const token = localStorage.getItem("token")
         let result = await axios.get("http://54.252.144.251:3000/premium/download", { headers: { "Authorization": token } })
-        console.log(result);
         if (result.data.isPremium === true) {
             const a = document.createElement("a");
             a.href = result.data.fileUrl;
@@ -246,8 +243,6 @@ downloadOldExpense.onclick = async () => {
         const token = localStorage.getItem("token")
         if (!isDownloadOpen) {
             let result = await axios.get("http://54.252.144.251:3000/premium/downloadoldfiles", { headers: { "Authorization": token } })
-            console.log(result);
-
             if (result.data.isPremium === true) {
                 for (let i = 0; i < result.data.allFile.length; i++) {
                     showAllFile(result.data.allFile[i]);
@@ -279,11 +274,9 @@ function premiumFeatures() {
     lead.style.display = "block";
     downloadExpense.style.display = "block";
     downloadOldExpense.style.display = "block";
-
 }
 
 function showError(err) {
-    console.log(err);
     if (err.response !== undefined) {
         error.textContent = `Error: ${err.response.data.Error}`;
     } else {
