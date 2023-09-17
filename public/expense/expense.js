@@ -48,7 +48,6 @@ form.addEventListener("submit", async (e) => {
     try {
         const token = localStorage.getItem("token")
         const expenseDetail = await axios.post("http://54.252.144.251:3000/expense/addExpense", expense, { headers: { "Authorization": token } });
-        console.log(expenseDetail);
         ShowValue(expenseDetail.data.expenseData)
 
     } catch (err) {
@@ -56,30 +55,10 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-window.addEventListener("DOMContentLoaded", async () => {
-    try {
-        const page = 1;
-        const item = localStorage.getItem("noOfItem")
-        const token = localStorage.getItem("token")
-        const all = await axios.get(`http://54.252.144.251:3000/expense/getExpense?page=${page}&item=${item}`, { headers: { "Authorization": token } });
-        console.log(all);
-        listElement.innerHTML = "";
-        if (all.data.isPremium === true) {
-            premiumFeatures();
-            for (let i = 0; i < all.data.allExpense.length; i++) {
-                ShowValue(all.data.allExpense[i]);
-            }
-            showPagination(all.data.currentPage, all.data.hasNextPage, all.data.nextPage, all.data.hasPreviousPage, all.data.previousPage, all.data.lastPage)
-        }
-        else {
-            for (let i = 0; i < all.data.allExpense.length; i++) {
-                ShowValue(all.data.allExpense[i]);
-            }
-            showPagination(all.data.currentPage, all.data.hasNextPage, all.data.nextPage, all.data.hasPreviousPage, all.data.previousPage, all.data.lastPage)
-        }
-    } catch (err) {
-        showError(err);
-    }
+window.addEventListener("DOMContentLoaded", () => {
+
+    const page = 1;
+    getProducts(page);
 });
 
 function showPagination(currentPage, hasNextPage, nextPage, hasPreviousPage, previousPage, lastPage) {
@@ -132,20 +111,22 @@ async function getProducts(page) {
         listElement.innerHTML = "";
         if (all.data.isPremium === true) {
             premiumFeatures();
-            for (let i = 0; i < all.data.allExpense.length; i++) {
-                ShowValue(all.data.allExpense[i]);
-            }
-            showPagination(all.data.currentPage, all.data.hasNextPage, all.data.nextPage, all.data.hasPreviousPage, all.data.previousPage, all.data.lastPage);
+            loopData(all);
         }
         else {
-            for (let i = 0; i < all.data.allExpense.length; i++) {
-                ShowValue(all.data.allExpense[i]);
-            }
-            showPagination(all.data.currentPage, all.data.hasNextPage, all.data.nextPage, all.data.hasPreviousPage, all.data.previousPage, all.data.lastPage)
+            loopData(all);
         }
     } catch (err) {
         showError(err);
     }
+}
+
+function loopData(all) {
+    for (let i = 0; i < all.data.allExpense.length; i++) {
+        ShowValue(all.data.allExpense[i]);
+    }
+    showPagination(all.data.currentPage, all.data.hasNextPage, all.data.nextPage, all.data.hasPreviousPage, all.data.previousPage, all.data.lastPage)
+
 }
 
 
