@@ -39,7 +39,7 @@ exports.forgotPasswordRequest = async (req, res, next) => {
                 sender,
                 to: receivers,
                 subject: 'Forget Password',
-                htmlContent: `<h3>Click the below link to change your password</h3><a href="http://localhost:3000/password/resetpassword/${result.id}">Reset password link</a>`,
+                htmlContent: `<h3>Click the below link to change your password</h3><a href="http://54.252.144.251:3000/password/resetpassword/${result.id}">Reset password link</a>`,
             })
             console.log(message);
             res.status(201).json({ message: 'Mail successfully sent ', success: true })
