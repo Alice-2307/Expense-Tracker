@@ -15,7 +15,6 @@ form.addEventListener("submit", async (e) => {
         let data = await axios.post("http://54.252.144.251:3000/user/signup", userData);
         window.location.href = "../login/login.html";
     } catch (err) {
-        console.log(err);
         if (err.response !== undefined) {
             error.textContent = `Error: ${err.response.data.Error}`
         }
