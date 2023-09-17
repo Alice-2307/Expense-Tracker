@@ -4,8 +4,6 @@ const email = document.getElementById("email");
 
 const error = document.getElementById("error");
 
-const a = require("../login/")
-
 form.addEventListener("submit", async (e) => {
     e.preventDefault()
 
