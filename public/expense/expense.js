@@ -142,14 +142,14 @@ function ShowValue(expenseVal) {
 
     deleteBtn.onclick = () => {
         listElement.removeChild(subElement)
-        Delete(expenseVal);
+        deleteVal(expenseVal);
     };
 
     subElement.appendChild(deleteBtn);
     listElement.appendChild(subElement);
 }
 
-async function Delete(v) {
+async function deleteVal(v) {
     try {
         const token = await localStorage.getItem("token")
         await axios.delete(`http://54.252.144.251:3000/expense/${v.id}`, { headers: { "Authorization": token } })
