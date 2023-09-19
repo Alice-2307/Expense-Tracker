@@ -3,12 +3,12 @@ const expense = require("../models/expense");
 const sequelize = require("../utils/database");
 
 exports.addExpense = async (req, res, next) => {
-
+    try {
     const desc = req.body.description;
     const amount = req.body.amount;
     const category = req.body.category
     const t = await sequelize.transaction();
-    try {
+    
         let result = await expense.create({
             description: desc,
             amount: amount,
@@ -64,10 +64,10 @@ exports.getExpense = async (req, res, next) => {
 }
 
 exports.deleteExpense = async (req, res, next) => {
+    try {
     const expenseId = req.params.id;
     const t = await sequelize.transaction();
 
-    try {
         let deleteVal = await expense.findOne({ where: { id: expenseId, userId: req.user.id } });
         await deleteVal.destroy({ transaction: t });
         let amount = deleteVal.amount;

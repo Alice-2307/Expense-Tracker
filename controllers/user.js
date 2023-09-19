@@ -5,11 +5,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.postUser = async (req, res, next) => {
+    try {
     const name = req.body.name;
     const email = req.body.email;
     const pass = req.body.password;
 
-    try {
         let hashPassword = await bcrypt.hash(pass, 10)
         await user.create({
             name: name,
@@ -31,10 +31,10 @@ exports.postUser = async (req, res, next) => {
 }
 
 exports.loginUser = async (req, res, next) => {
+    try {
     const email = req.body.email;
     const pass = req.body.password;
 
-    try {
         if (email === "" || pass === "") {
             return res.status(400).json({ Error: "Required fields are empty" });
         }
