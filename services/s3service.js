@@ -4,7 +4,7 @@ exports.uploadtoS3 = (data, filename) =>{
 
     const bucketName = process.env.BUCKET_NAME;
     const iAmUserKey = process.env.IAM_USER_KEY;
-    const  iAmUserSecretKey = process.env.IAM_USER_SECRET;
+    const iAmUserSecretKey = process.env.IAM_USER_SECRET;
 
     const s3Bucket = new AWS.S3({
         accessKeyId: iAmUserKey,

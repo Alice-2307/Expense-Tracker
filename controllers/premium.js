@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const userModel = require("../models/user");
 
 const UserService = require("../services/userservice");
 
@@ -8,7 +8,7 @@ const downloadFile = require("../models/file");
 
 exports.showLeaderboard = async (req, res, next) => {
     try {
-        const leaderboard = await User.findAll({
+        const leaderboard = await userModel.findAll({
             attributes: ['name', 'totalExpense'],
             order: [['totalExpense', 'Desc']]
         })

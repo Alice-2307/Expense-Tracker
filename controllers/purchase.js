@@ -1,6 +1,6 @@
 const Razorpay = require("razorpay");
 
-const Order = require("../models/order");
+const orderModel = require("../models/order");
 
 exports.purchasePremium = async (req, res, next) => {
     try {
@@ -23,7 +23,7 @@ exports.updateTransaction = async (req, res, next) => {
         const paymentId = req.body.payment_id;
         const orderId = req.body.order_id;
 
-        const order = await Order.findOne({ where: { orderId: orderId } })
+        const order = await orderModel.findOne({ where: { orderId: orderId } })
         if (paymentId !== null) {
             await Promise.all([
                 order.update({ paymentId: paymentId, status: "successful" }),

@@ -2,7 +2,7 @@ const Sib = require("sib-api-v3-sdk");
 
 const forgotPassword = require("../models/password");
 
-const user = require("../models/user");
+const userModel = require("../models/user");
 
 const bcrypt = require("bcrypt");
 
@@ -10,7 +10,7 @@ exports.forgotPasswordRequest = async (req, res, next) => {
     try {
         const email = req.body.email;
 
-        const checkUser = await user.findOne({ where: { email: email } });
+        const checkUser = await userModel.findOne({ where: { email: email } });
 
         if (checkUser) {
 
@@ -87,7 +87,7 @@ exports.updatePassword = async (req, res, next) => {
 
         const check = await forgotPassword.findOne({ where: { id: resetPasswordId } })
 
-        let changePassword = await user.findOne({ where: { id: check.userId } });
+        let changePassword = await userModel.findOne({ where: { id: check.userId } });
 
         let hashPassword = await bcrypt.hash(newPassword, 10)
 
